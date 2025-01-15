@@ -24,14 +24,16 @@ class PatientController {
   // Menambahkan data patient baru
   async store(req, res) {
     try {
-      const { name, phone, address, status} = req.body;
+      const { name, phone, address, status } = req.body;
 
+      // Validasi input
       if (!name || !phone || !address || !status) {
         return res.status(400).json({
           message: "Semua field (name, phone, address, status) harus diisi.",
         });
       }
 
+      // Create patient
       const patient = await Patient.create({
         name,
         phone,
@@ -59,12 +61,14 @@ class PatientController {
       const { id } = req.params;
       const { name, phone, address, status } = req.body;
 
+      // Validasi input
       if (!name || !phone || !address || !status) {
         return res.status(400).json({
           message: "Semua field (name, phone, address, status) harus diisi.",
         });
       }
 
+      // Update patient
       const updatedPatient = await Patient.update(id, { name, phone, address, status });
 
       if (!updatedPatient) {
@@ -92,6 +96,7 @@ class PatientController {
     try {
       const { id } = req.params;
 
+      // Delete patient
       const deleted = await Patient.delete(id);
 
       if (!deleted) {
@@ -113,8 +118,7 @@ class PatientController {
       });
     }
   }
-}  
-
+}
 
 // membuat object PatientController
 const object = new PatientController();
